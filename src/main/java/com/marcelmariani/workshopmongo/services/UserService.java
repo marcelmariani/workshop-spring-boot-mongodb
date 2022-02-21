@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.marcelmariani.workshopmongo.domain.User;
 import com.marcelmariani.workshopmongo.repository.UserRepository;
 
+
 @Service
 public class UserService {
 	
@@ -17,4 +18,10 @@ public class UserService {
 	public List<User> findAll(){
 		return repo.findAll();
 	}
+	
+	public User insert(User obj) {
+		return repo.insert(obj);
+	}
+	
+
 }
