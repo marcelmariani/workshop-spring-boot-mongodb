@@ -1,11 +1,11 @@
 package com.marcelmariani.workshopmongo.resources;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.marcelmariani.workshopmongo.domain.Post;
 import com.marcelmariani.workshopmongo.domain.User;
 import com.marcelmariani.workshopmongo.dto.UserDTO;
 import com.marcelmariani.workshopmongo.repository.UserRepository;
@@ -64,5 +65,10 @@ public class UserResource {
           return service.save(newUser);
         });
 
+    }
+    
+    @GetMapping("/{id}/posts")
+    public Optional<Object> findPosts(@PathVariable String id) {
+        return this.service.findById(id).map(user -> ResponseEntity.ok(user).getBody().getPosts());
     }
 }
